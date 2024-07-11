@@ -19,4 +19,15 @@ public interface SportRepository extends JpaRepository<Sport, Long> {
 	@Query("SELECT s FROM Sport s JOIN s.players p GROUP BY s.id HAVING COUNT(p.id) >= 2")
 	List<Sport> findSportsWithMultiplePlayers();
 
+	
+	/*
+	 * SELECT s.* FROM sports s LEFT JOIN player_sports ps ON s.id = ps.player_id
+	 * WHERE ps.sport_id IS NULL;
+	 * 
+	 */
+	@Query("SELECT s FROM Sport s WHERE s.players IS EMPTY")
+	List<Sport> findSportsWithNoPlayers();
+	
+	List<Sport> findByNameIn(List<String> names);
+
 }
