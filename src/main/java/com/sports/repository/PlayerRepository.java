@@ -18,5 +18,11 @@ public interface PlayerRepository extends JpaRepository<Player, Long> {
     @Query("SELECT p FROM Player p WHERE p.gender = :gender AND p.level = :level AND p.age = :age")
     List<Player> findPlayersByGenderLevelAge(@Param("gender") String gender, @Param("level") int level, @Param("age") int age);
 
+        
+    @Query("SELECT p FROM Player p WHERE p.sports IS EMPTY")
+    List<Player> findPlayersWithNoSports();
+    
+    Page<Player> findAllBySportsId(Long sportId, Pageable pageable);
+
 }
 
